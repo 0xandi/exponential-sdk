@@ -1,5 +1,5 @@
 import type { TrpcClient } from './client.js';
-import type { Action, KanbanStatus } from './types/action.js';
+import type { Action, KanbanStatus, Priority } from './types/action.js';
 
 export interface ActionsListOptions {
   projectId?: string;
@@ -11,6 +11,42 @@ export interface ActionsKanbanOptions {
   projectId?: string;
   status?: KanbanStatus;
   assigneeId?: string;
+}
+
+export type ActionStatus = 'ACTIVE' | 'COMPLETED' | 'CANCELLED' | 'DELETED' | 'DRAFT';
+
+export interface ActionCreateInput {
+  name: string;
+  description?: string;
+  projectId?: string;
+  workspaceId?: string;
+  dueDate?: Date;
+  scheduledStart?: Date;
+  scheduledEnd?: Date;
+  duration?: number;
+  priority?: Priority;
+  status?: ActionStatus;
+  epicId?: string;
+  effortEstimate?: number;
+  blockedByIds?: string[];
+}
+
+export interface ActionUpdateInput {
+  id: string;
+  name?: string;
+  description?: string;
+  projectId?: string;
+  workspaceId?: string | null;
+  dueDate?: Date | null;
+  scheduledStart?: Date | null;
+  scheduledEnd?: Date | null;
+  duration?: number | null;
+  priority?: Priority;
+  status?: ActionStatus;
+  kanbanStatus?: KanbanStatus;
+  epicId?: string | null;
+  effortEstimate?: number | null;
+  blockedByIds?: string[];
 }
 
 export class ActionsApi {
@@ -78,5 +114,13 @@ export class ActionsApi {
       projectId,
       assigneeId,
     }) as Action[];
+  }
+
+  async create(input: ActionCreateInput): Promise<Action> {
+    return await this.client.action.create.mutate(input) as Action;
+  }
+
+  async update(input: ActionUpdateInput): Promise<Action> {
+    return await this.client.action.update.mutate(input) as Action;
   }
 }

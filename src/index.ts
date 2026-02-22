@@ -34,6 +34,11 @@ export type {
   KanbanStatus,
   Priority,
 } from './types/action.js';
+export type {
+  ActionCreateInput,
+  ActionUpdateInput,
+  ActionStatus,
+} from './actions.js';
 export type { Project, ProjectOutput, ProjectsListOutput } from './types/project.js';
 export type { Workspace, WorkspaceOutput, WorkspacesListOutput } from './types/workspace.js';
 export { isTRPCError, TRPCClientError };
