@@ -6,6 +6,9 @@ import { WorkspacesApi } from './workspaces.js';
 import { ContactsApi } from './contacts.js';
 import { PipelinesApi } from './pipelines.js';
 import { TicketsApi } from './tickets.js';
+import { ProductsApi } from './products.js';
+import { FeaturesApi } from './features.js';
+import { EpicsApi } from './epics.js';
 
 export class ExponentialClient {
   private client: TrpcClient;
@@ -16,6 +19,9 @@ export class ExponentialClient {
   contacts: ContactsApi;
   pipelines: PipelinesApi;
   tickets: TicketsApi;
+  products: ProductsApi;
+  features: FeaturesApi;
+  epics: EpicsApi;
 
   constructor(private config: { token: string; apiUrl: string }) {
     this.client = createClient(this.config);
@@ -26,6 +32,9 @@ export class ExponentialClient {
     this.contacts = new ContactsApi(this.client);
     this.pipelines = new PipelinesApi(this.client);
     this.tickets = new TicketsApi(this.client);
+    this.products = new ProductsApi(this.client);
+    this.features = new FeaturesApi(this.client);
+    this.epics = new EpicsApi(this.client);
   }
 }
 
@@ -86,5 +95,38 @@ export type {
   ActionCommentAddInput,
   ActionCommentUpdateInput,
 } from './actionComments.js';
-export type { TicketCommentAddInput } from './tickets.js';
+export type { Product } from './types/product.js';
+export type { ProductCreateInput, ProductUpdateInput } from './products.js';
+export type {
+  Feature,
+  FeatureScope,
+  FeatureScopeStatus,
+  FeatureStatus,
+} from './types/feature.js';
+export type {
+  FeatureCreateInput,
+  FeatureUpdateInput,
+  FeatureListOptions,
+} from './features.js';
+export type {
+  Ticket,
+  TicketDetail,
+  TicketAssignee,
+  TicketDependencyEdge,
+  TicketStatus,
+  TicketType,
+} from './types/ticket.js';
+export type {
+  TicketListOptions,
+  TicketCreateInput,
+  TicketUpdateInput,
+  TicketCommentAddInput,
+  TicketSearchOptions,
+} from './tickets.js';
+export type { Epic, EpicStatus, EpicPriority } from './types/epic.js';
+export type {
+  EpicCreateInput,
+  EpicUpdateInput,
+  EpicListOptions,
+} from './epics.js';
 export { isTRPCError, TRPCClientError };

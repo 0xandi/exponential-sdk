@@ -104,10 +104,42 @@ export interface TrpcClient {
     updateComment: { mutate: (input: { commentId: string; content: string }) => Promise<unknown> };
     deleteComment: { mutate: (input: { commentId: string }) => Promise<unknown> };
   };
+  epic: {
+    list: { query: (input: { workspaceId: string; status?: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED' }) => Promise<unknown[]> };
+    getById: { query: (input: { id: string }) => Promise<unknown> };
+    create: { mutate: (input: { workspaceId: string; name: string; description?: string; priority?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE'; startDate?: Date; targetDate?: Date }) => Promise<unknown> };
+    update: { mutate: (input: { id: string; name?: string; description?: string | null; status?: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED'; priority?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE'; startDate?: Date | null; targetDate?: Date | null }) => Promise<unknown> };
+    delete: { mutate: (input: { id: string }) => Promise<unknown> };
+  };
   product: {
+    product: {
+      list: { query: (input: { workspaceId: string }) => Promise<unknown[]> };
+      getById: { query: (input: { id: string }) => Promise<unknown> };
+      getBySlug: { query: (input: { workspaceId: string; slug: string }) => Promise<unknown> };
+      create: { mutate: (input: { workspaceId: string; name: string; slug: string; description?: string; icon?: string; color?: string }) => Promise<unknown> };
+      update: { mutate: (input: { id: string; name?: string; description?: string; icon?: string; color?: string; funTicketIds?: boolean }) => Promise<unknown> };
+      delete: { mutate: (input: { id: string }) => Promise<unknown> };
+    };
+    feature: {
+      list: { query: (input: { productId: string; status?: 'IDEA' | 'DEFINED' | 'IN_PROGRESS' | 'SHIPPED' | 'ARCHIVED' }) => Promise<unknown[]> };
+      getById: { query: (input: { id: string }) => Promise<unknown> };
+      create: { mutate: (input: { productId: string; name: string; description?: string; vision?: string; status?: 'IDEA' | 'DEFINED' | 'IN_PROGRESS' | 'SHIPPED' | 'ARCHIVED'; effort?: number; priority?: number; goalId?: number }) => Promise<unknown> };
+      update: { mutate: (input: { id: string; name?: string; description?: string; vision?: string; status?: 'IDEA' | 'DEFINED' | 'IN_PROGRESS' | 'SHIPPED' | 'ARCHIVED'; effort?: number; priority?: number; goalId?: number | null }) => Promise<unknown> };
+      delete: { mutate: (input: { id: string }) => Promise<unknown> };
+    };
     ticket: {
+      list: { query: (input: { productId: string; status?: string; type?: string; featureId?: string; epicId?: string; cycleId?: string; assigneeId?: string }) => Promise<unknown[]> };
+      getById: { query: (input: { id: string }) => Promise<unknown> };
+      create: { mutate: (input: { productId: string; title: string; body?: string; type?: string; status?: string; priority?: number; points?: number; branchName?: string; prUrl?: string; designUrl?: string; specUrl?: string; links?: Record<string, string>; epicId?: string; featureId?: string; cycleId?: string; scopeId?: string; assigneeId?: string; templateId?: string }) => Promise<unknown> };
+      update: { mutate: (input: { id: string; title?: string; body?: string; type?: string; status?: string; priority?: number | null; points?: number | null; branchName?: string | null; prUrl?: string | null; designUrl?: string | null; specUrl?: string | null; links?: Record<string, string> | null; epicId?: string | null; featureId?: string | null; cycleId?: string | null; scopeId?: string | null; assigneeId?: string | null }) => Promise<unknown> };
+      delete: { mutate: (input: { id: string }) => Promise<unknown> };
+      search: { query: (input: { productId: string; query?: string; excludeTicketId?: string; limit?: number }) => Promise<unknown[]> };
+      addDependency: { mutate: (input: { ticketId: string; dependsOnId: string }) => Promise<unknown> };
+      removeDependency: { mutate: (input: { ticketId: string; dependsOnId: string }) => Promise<unknown> };
       addComment: { mutate: (input: { ticketId: string; content: string }) => Promise<unknown> };
       deleteComment: { mutate: (input: { id: string }) => Promise<unknown> };
+      linkAction: { mutate: (input: { ticketId: string; actionId: string }) => Promise<unknown> };
+      unlinkAction: { mutate: (input: { actionId: string }) => Promise<unknown> };
     };
   };
 }
