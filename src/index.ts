@@ -1,25 +1,31 @@
 import { createClient, isTRPCError, TRPCClientError, type TrpcClient } from './client.js';
 import { ActionsApi } from './actions.js';
+import { ActionCommentsApi } from './actionComments.js';
 import { ProjectsApi } from './projects.js';
 import { WorkspacesApi } from './workspaces.js';
 import { ContactsApi } from './contacts.js';
 import { PipelinesApi } from './pipelines.js';
+import { TicketsApi } from './tickets.js';
 
 export class ExponentialClient {
   private client: TrpcClient;
   actions: ActionsApi;
+  actionComments: ActionCommentsApi;
   projects: ProjectsApi;
   workspaces: WorkspacesApi;
   contacts: ContactsApi;
   pipelines: PipelinesApi;
+  tickets: TicketsApi;
 
   constructor(private config: { token: string; apiUrl: string }) {
     this.client = createClient(this.config);
     this.actions = new ActionsApi(this.client);
+    this.actionComments = new ActionCommentsApi(this.client);
     this.projects = new ProjectsApi(this.client);
     this.workspaces = new WorkspacesApi(this.client);
     this.contacts = new ContactsApi(this.client);
     this.pipelines = new PipelinesApi(this.client);
+    this.tickets = new TicketsApi(this.client);
   }
 }
 
@@ -71,4 +77,14 @@ export type {
   DealUpdateInput,
   DealMoveInput,
 } from './pipelines.js';
+export type {
+  ActionComment,
+  TicketComment,
+  CommentAuthor,
+} from './types/comment.js';
+export type {
+  ActionCommentAddInput,
+  ActionCommentUpdateInput,
+} from './actionComments.js';
+export type { TicketCommentAddInput } from './tickets.js';
 export { isTRPCError, TRPCClientError };

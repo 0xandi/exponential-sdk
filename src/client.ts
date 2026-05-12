@@ -98,6 +98,18 @@ export interface TrpcClient {
     dealMove: { mutate: (input: { id: string; stageId: string; stageOrder: number }) => Promise<unknown> };
     dealDelete: { mutate: (input: { id: string }) => Promise<unknown> };
   };
+  actionComment: {
+    getComments: { query: (input: { actionId: string }) => Promise<unknown[]> };
+    addComment: { mutate: (input: { actionId: string; content: string }) => Promise<unknown> };
+    updateComment: { mutate: (input: { commentId: string; content: string }) => Promise<unknown> };
+    deleteComment: { mutate: (input: { commentId: string }) => Promise<unknown> };
+  };
+  product: {
+    ticket: {
+      addComment: { mutate: (input: { ticketId: string; content: string }) => Promise<unknown> };
+      deleteComment: { mutate: (input: { id: string }) => Promise<unknown> };
+    };
+  };
 }
 
 export function createClient(config: { token: string; apiUrl: string }): TrpcClient {
