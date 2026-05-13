@@ -9,6 +9,7 @@ import { TicketsApi } from './tickets.js';
 import { ProductsApi } from './products.js';
 import { FeaturesApi } from './features.js';
 import { EpicsApi } from './epics.js';
+import { LabelsApi } from './labels.js';
 
 export class ExponentialClient {
   private client: TrpcClient;
@@ -22,6 +23,7 @@ export class ExponentialClient {
   products: ProductsApi;
   features: FeaturesApi;
   epics: EpicsApi;
+  labels: LabelsApi;
 
   constructor(private config: { token: string; apiUrl: string }) {
     this.client = createClient(this.config);
@@ -35,6 +37,7 @@ export class ExponentialClient {
     this.products = new ProductsApi(this.client);
     this.features = new FeaturesApi(this.client);
     this.epics = new EpicsApi(this.client);
+    this.labels = new LabelsApi(this.client);
   }
 }
 
@@ -129,4 +132,12 @@ export type {
   EpicUpdateInput,
   EpicListOptions,
 } from './epics.js';
+export type { Tag, TagEntityType, TagListResult } from './types/tag.js';
+export type {
+  LabelListOptions,
+  LabelCreateInput,
+  SetEntityTagsInput,
+  ListForEntityInput,
+  SetEntityTagsResult,
+} from './labels.js';
 export { isTRPCError, TRPCClientError };

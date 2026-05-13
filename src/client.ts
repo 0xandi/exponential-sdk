@@ -111,6 +111,12 @@ export interface TrpcClient {
     update: { mutate: (input: { id: string; name?: string; description?: string | null; status?: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED'; priority?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE'; startDate?: Date | null; targetDate?: Date | null }) => Promise<unknown> };
     delete: { mutate: (input: { id: string }) => Promise<unknown> };
   };
+  tag: {
+    list: { query: (input?: { workspaceId?: string; category?: string | null }) => Promise<unknown> };
+    create: { mutate: (input: { workspaceId: string; name: string; color: string; description?: string; category?: string | null }) => Promise<unknown> };
+    setEntityTags: { mutate: (input: { entityType: 'action' | 'ticket' | 'feature' | 'epic'; entityId: string; tagIds: string[] }) => Promise<unknown> };
+    listForEntity: { query: (input: { entityType: 'action' | 'ticket' | 'feature' | 'epic'; entityId: string }) => Promise<unknown[]> };
+  };
   product: {
     product: {
       list: { query: (input: { workspaceId: string }) => Promise<unknown[]> };
