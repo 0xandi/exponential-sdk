@@ -134,7 +134,7 @@ export interface TrpcClient {
       delete: { mutate: (input: { id: string }) => Promise<unknown> };
     };
     ticket: {
-      list: { query: (input: { productId: string; status?: string; type?: string; featureId?: string; epicId?: string; cycleId?: string; assigneeId?: string }) => Promise<unknown[]> };
+      list: { query: (input: { productId?: string; status?: string; type?: string; featureId?: string; epicId?: string; cycleId?: string; assigneeId?: string; prUrl?: string; branchName?: string }) => Promise<unknown[]> };
       getById: { query: (input: { id: string }) => Promise<unknown> };
       create: { mutate: (input: { productId: string; title: string; body?: string; type?: string; status?: string; priority?: number; points?: number; branchName?: string; prUrl?: string; designUrl?: string; specUrl?: string; links?: Record<string, string>; epicId?: string; featureId?: string; cycleId?: string; scopeId?: string; assigneeId?: string; templateId?: string }) => Promise<unknown> };
       update: { mutate: (input: { id: string; title?: string; body?: string; type?: string; status?: string; priority?: number | null; points?: number | null; branchName?: string | null; prUrl?: string | null; designUrl?: string | null; specUrl?: string | null; links?: Record<string, string> | null; epicId?: string | null; featureId?: string | null; cycleId?: string | null; scopeId?: string | null; assigneeId?: string | null }) => Promise<unknown> };

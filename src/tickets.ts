@@ -10,13 +10,23 @@ import type {
 import type { Action } from './types/action.js';
 
 export interface TicketListOptions {
-  productId: string;
+  /**
+   * Required for product-scoped queries. Optional when `prUrl` or `branchName`
+   * is supplied — those filters are workspace-global (a PR URL or branch name
+   * uniquely identifies a Ticket across all products in the workspace), so the
+   * server resolves scope from the caller's auth context instead.
+   */
+  productId?: string;
   status?: TicketStatus;
   type?: TicketType;
   featureId?: string;
   epicId?: string;
   cycleId?: string;
   assigneeId?: string;
+  /** Workspace-scoped lookup by `Ticket.prUrl` (exact match). */
+  prUrl?: string;
+  /** Workspace-scoped lookup by `Ticket.branchName` (exact match). */
+  branchName?: string;
 }
 
 export interface TicketCreateInput {
