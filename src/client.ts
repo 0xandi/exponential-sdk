@@ -132,6 +132,9 @@ export interface TrpcClient {
       create: { mutate: (input: { productId: string; name: string; description?: string; vision?: string; status?: 'IDEA' | 'DEFINED' | 'IN_PROGRESS' | 'SHIPPED' | 'ARCHIVED'; effort?: number; priority?: number; goalId?: number }) => Promise<unknown> };
       update: { mutate: (input: { id: string; name?: string; description?: string; vision?: string; status?: 'IDEA' | 'DEFINED' | 'IN_PROGRESS' | 'SHIPPED' | 'ARCHIVED'; effort?: number; priority?: number; goalId?: number | null }) => Promise<unknown> };
       delete: { mutate: (input: { id: string }) => Promise<unknown> };
+      addUserStory: { mutate: (input: { featureId: string; scopeId?: string; asA?: string; iWant?: string; soThat?: string; acceptanceCriteria?: string }) => Promise<unknown> };
+      updateUserStory: { mutate: (input: { id: string; scopeId?: string | null; asA?: string; iWant?: string; soThat?: string; acceptanceCriteria?: string }) => Promise<unknown> };
+      deleteUserStory: { mutate: (input: { id: string }) => Promise<unknown> };
     };
     ticket: {
       list: { query: (input: { productId?: string; status?: string; type?: string; featureId?: string; epicId?: string; cycleId?: string; assigneeId?: string; prUrl?: string; branchName?: string }) => Promise<unknown[]> };

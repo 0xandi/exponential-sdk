@@ -8,6 +8,7 @@ import { PipelinesApi } from './pipelines.js';
 import { TicketsApi } from './tickets.js';
 import { ProductsApi } from './products.js';
 import { FeaturesApi } from './features.js';
+import { UserStoriesApi } from './userStories.js';
 import { EpicsApi } from './epics.js';
 import { LabelsApi } from './labels.js';
 
@@ -22,6 +23,7 @@ export class ExponentialClient {
   tickets: TicketsApi;
   products: ProductsApi;
   features: FeaturesApi;
+  userStories: UserStoriesApi;
   epics: EpicsApi;
   labels: LabelsApi;
 
@@ -36,6 +38,7 @@ export class ExponentialClient {
     this.tickets = new TicketsApi(this.client);
     this.products = new ProductsApi(this.client);
     this.features = new FeaturesApi(this.client);
+    this.userStories = new UserStoriesApi(this.client);
     this.epics = new EpicsApi(this.client);
     this.labels = new LabelsApi(this.client);
   }
@@ -111,6 +114,12 @@ export type {
   FeatureUpdateInput,
   FeatureListOptions,
 } from './features.js';
+export type { UserStory } from './types/userStory.js';
+export type {
+  UserStoryCreateInput,
+  UserStoryUpdateInput,
+  UserStoryListOptions,
+} from './userStories.js';
 export type {
   Ticket,
   TicketDetail,
