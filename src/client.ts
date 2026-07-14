@@ -153,6 +153,8 @@ export interface TrpcClient {
       deleteRequirement: { mutate: (input: { id: string }) => Promise<unknown> };
       linkPage: { mutate: (input: { featureId: string; pageId: string; scopeId?: string }) => Promise<unknown> };
       unlinkPage: { mutate: (input: { featureId: string; pageId: string }) => Promise<unknown> };
+      listAreas: { query: (input: { productId: string }) => Promise<unknown[]> };
+      createArea: { mutate: (input: { productId: string; name: string; description?: string }) => Promise<unknown> };
     };
     ticket: {
       list: { query: (input: { productId?: string; status?: string; type?: string; featureId?: string; epicId?: string; cycleId?: string; assigneeId?: string; prUrl?: string; branchName?: string }) => Promise<unknown[]> };

@@ -12,6 +12,7 @@ import { FeaturesApi } from './features.js';
 import { UserStoriesApi } from './userStories.js';
 import { EpicsApi } from './epics.js';
 import { LabelsApi } from './labels.js';
+import { AreasApi } from './areas.js';
 import { PagesApi } from './pages.js';
 import { RequirementsApi } from './requirements.js';
 import { ScopesApi } from './scopes.js';
@@ -31,6 +32,7 @@ export class ExponentialClient {
   userStories: UserStoriesApi;
   epics: EpicsApi;
   labels: LabelsApi;
+  areas: AreasApi;
   pages: PagesApi;
   requirements: RequirementsApi;
   scopes: ScopesApi;
@@ -50,6 +52,7 @@ export class ExponentialClient {
     this.userStories = new UserStoriesApi(this.client);
     this.epics = new EpicsApi(this.client);
     this.labels = new LabelsApi(this.client);
+    this.areas = new AreasApi(this.client);
     this.pages = new PagesApi(this.client);
     this.requirements = new RequirementsApi(this.client);
     this.scopes = new ScopesApi(this.client);
@@ -137,6 +140,7 @@ export type {
   FeatureListOptions,
   FeatureLinkPageInput,
 } from './features.js';
+export type { Area, AreaListOptions, AreaCreateInput } from './areas.js';
 export type { KnowledgePage } from './types/page.js';
 export type {
   PageListOptions,
