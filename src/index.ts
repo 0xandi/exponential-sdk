@@ -12,6 +12,9 @@ import { FeaturesApi } from './features.js';
 import { UserStoriesApi } from './userStories.js';
 import { EpicsApi } from './epics.js';
 import { LabelsApi } from './labels.js';
+import { PagesApi } from './pages.js';
+import { RequirementsApi } from './requirements.js';
+import { ScopesApi } from './scopes.js';
 
 export class ExponentialClient {
   private client: TrpcClient;
@@ -28,6 +31,9 @@ export class ExponentialClient {
   userStories: UserStoriesApi;
   epics: EpicsApi;
   labels: LabelsApi;
+  pages: PagesApi;
+  requirements: RequirementsApi;
+  scopes: ScopesApi;
 
   constructor(private config: { token: string; apiUrl: string }) {
     this.client = createClient(this.config);
@@ -44,6 +50,9 @@ export class ExponentialClient {
     this.userStories = new UserStoriesApi(this.client);
     this.epics = new EpicsApi(this.client);
     this.labels = new LabelsApi(this.client);
+    this.pages = new PagesApi(this.client);
+    this.requirements = new RequirementsApi(this.client);
+    this.scopes = new ScopesApi(this.client);
   }
 }
 
@@ -126,7 +135,24 @@ export type {
   FeatureCreateInput,
   FeatureUpdateInput,
   FeatureListOptions,
+  FeatureLinkPageInput,
 } from './features.js';
+export type { KnowledgePage } from './types/page.js';
+export type {
+  PageListOptions,
+  PageCreateInput,
+  PageUpdateInput,
+} from './pages.js';
+export type { Requirement, RequirementKind } from './types/requirement.js';
+export type {
+  RequirementListOptions,
+  RequirementCreateInput,
+} from './requirements.js';
+export type {
+  ScopeListOptions,
+  ScopeCreateInput,
+  ScopeUpdateInput,
+} from './scopes.js';
 export type { UserStory } from './types/userStory.js';
 export type {
   UserStoryCreateInput,
